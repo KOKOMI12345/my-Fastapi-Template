@@ -1,0 +1,9 @@
+SparkleLogging
+fastapi
+aiomysql
+pydantic
+uvicorn
+aiofiles
+requests
+pytest-asyncio
+pytest
