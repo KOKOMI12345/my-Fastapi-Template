@@ -40,12 +40,10 @@ async def login_user(username: str, password: str) -> Union[bool,str]:
                     salt: bytes = result[3]  # 获取数据库中存储的盐值
                     logger.debug(f"获取到用户 {username} 的密码哈希和盐值：{stored_password.hex()}, {salt.hex()}")
                     # 对用户输入的密码进行相同的哈希操作
-                    hashed_password = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
+                    hashed_password = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000).rstrip(b'\0')
                     logger.debug(f"计算出用户 {username} 的密码哈希：{hashed_password.hex()}")
                     # 比较哈希后的密码是否一致
-                    stored_password_clean = stored_password.rstrip(b'\0')
-                    logger.debug(f"清理后的数据库密码哈希：{stored_password_clean.hex()}")
-                    if hashed_password.hex() == stored_password_clean.hex():
+                    if hashed_password.hex() == stored_password.hex():
                         logger.info(f"用户: {username} 登录成功")
                         return True
                     else:
