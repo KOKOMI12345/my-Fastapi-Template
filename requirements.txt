@@ -7,3 +7,5 @@ aiofiles
 requests
 pytest-asyncio
 pytest
+jwt
+python-magic
