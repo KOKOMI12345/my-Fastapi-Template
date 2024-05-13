@@ -9,3 +9,4 @@ pytest-asyncio
 pytest
 jwt
 python-magic
+python-magic-bin
