@@ -14,7 +14,7 @@ class Security:
         return jwt.encode(payload, Config.secret_key, algorithm=Config.algorithm)
     
     @staticmethod
-    async def verify_token(token: str,mode:str = "decode") -> tuple[bool,str]:
+    async def verify_token(token: str,mode:str = Config.validate_token_level) -> tuple[bool,str]:
         """
         验证token
         """

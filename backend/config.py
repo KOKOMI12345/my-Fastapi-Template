@@ -11,6 +11,7 @@ class Config:
     algorithm = 'HS256'
     expire_time_day = 7 
     allowfile = ['jpg', 'png', 'jpeg', 'gif','zip','rar','7z','doc','docx','xls','xlsx','ppt','pptx','pdf','mp4','mp3','wav','aac']
+    validate_token_level = "decode" # 设置token验证登记,可以设置为 decode或verify
 
 class DatabaseConfig:
     """数据库配置类"""
