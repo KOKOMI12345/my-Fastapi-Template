@@ -10,4 +10,3 @@ pytest
 pyjwt
 python-magic
 python-magic-bin
-pyjwt
