@@ -16,9 +16,9 @@ class HasRole:
     """
     registed_permission_dict: dict[str,Callable[...,Any]] = {}
 
-    @IsTesting()
     @classmethod
-    def registerPermission(cls,role: str):
+    @IsTesting()
+    def registerPermission(cls,role: str) -> Callable[...,Any]:
         """ 注册验证权限装饰器 """
         def decorator(func: Callable[...,Any]) -> Callable[...,Any]:
             @wraps(func)
@@ -26,13 +26,12 @@ class HasRole:
                 if role in cls.registed_permission_dict:
                     raise PermissionAlreadyExists(f"权限验证函数{role}已存在")
                 else:
-                    return await func(*args, **kwargs)
-            cls.registed_permission_dict[role] = wrapper
+                    cls.registed_permission_dict[role] = func
             return wrapper
         return decorator
     
-    @IsTesting()
     @classmethod
+    @IsTesting()
     def checkPermission(cls, role: str) -> Callable[..., Any]:
         """
         获取权限验证函数,类似Java的

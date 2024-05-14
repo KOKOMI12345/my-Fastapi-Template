@@ -10,7 +10,7 @@ class IsTesting:
     
     def __call__(self, func):
         @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             warnings.warn(f"{func.__name__} 函数或方法仍然在测试", TestingWarning,stacklevel=2)
-            return await func(*args, **kwargs)
+            return func(*args, **kwargs)
         return wrapper
