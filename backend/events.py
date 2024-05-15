@@ -1,6 +1,7 @@
 from backend.dependencies import Config , LogManager,wraps
 from backend.utils.dbController import Databasepool
 from backend.Interfaces import EventInterface
+from backend.exceptions import EventsAlreadyRegisted
 from typing import Callable , Any
 logger = LogManager.GetLogger('events')
 
@@ -14,7 +15,10 @@ class AppEvent(EventInterface):
             @wraps(func)
             async def wrapper(*args, **kwargs):
                 return await func(*args, **kwargs)
-            self.event_dict[event_name] = wrapper
+            if event_name not in self.event_dict:
+               self.event_dict[event_name] = wrapper
+            else:
+                raise EventsAlreadyRegisted(f"事件 {event_name} 已经注册!")
             return wrapper
         return decorator
 
